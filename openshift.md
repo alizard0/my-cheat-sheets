@@ -51,3 +51,11 @@
 **Documentation**
 
 `oc explain <object-kind>` // get docs
+
+**Deployments**
+
+`oc create -f <deploymnet.yaml>` // run your deployment yaml file
+
+`oc set image deployment <deployment-name> CONTAINER=<docker-image-path>` // updates docker image for a deployment
+
+`oc scale deployment <deployment-name> --replicas=<number-of-replicas>` // scale up by adding more replicas
