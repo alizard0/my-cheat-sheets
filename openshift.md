@@ -49,4 +49,5 @@
 `oc describe appliedclusterresourcequotas <quota-id>`            // describe quota
 
 **Documentation**
+
 `oc explain <object-kind>` // get docs
