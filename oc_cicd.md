@@ -11,6 +11,8 @@ podman login -u <username> -p <pwd> ${REGISTRY}
 oc new-app sonatype/nexus3:3.21.2 --name=nexus --as-deployment-config=true --as-deployment-config=true
 oc expose svc/nexus
 oc get routes
+// get your nexus admin password
+export NEXUS_PASSWORD=$(oc rsh <your-podname> cat /nexus-data/admin.password)
 ```
 
 3. (optonal) If you want to patch the deployment config of nexus use:
