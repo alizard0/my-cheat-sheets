@@ -1,4 +1,4 @@
-# OpenShift Operators
+# openShift operators-sdk
 
 1. Install operator-sdk 
 ```
@@ -21,6 +21,7 @@ oc apply -f $HOME/operator/deploy/service_account.yaml
 oc apply -f $HOME/operator/deploy/role.yaml
 oc apply -f $HOME/operator/deploy/role_binding.yaml
 // deploy the operator
+// note: you need to update the image path
 oc apply -f $HOME/operator/deploy/operator.yaml
 ```
 3. Use operator through a Custom Resource file
