@@ -63,3 +63,7 @@
 `oc patch dc <dc-name> --patch=<json>` // patch a deployment config
 
 `oc set resources dc <dc-name> --limits=memory=2Gi,cpu=2 --requests=memory=1Gi,cpu=500m` // increase resources for deployment config
+
+`oc set probe dc/<dc-name> --readiness --failure-threshold 3 --initial-delay-seconds 60 --get-url=http://:8081/`  // set readiness probe
+
+`oc set probe dc/nexus --liveness --failure-threshold 3 --initial-delay-seconds 60 -- echo ok`  // set liveness probe
