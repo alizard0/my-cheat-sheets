@@ -59,3 +59,7 @@
 `oc set image deployment <deployment-name> CONTAINER=<docker-image-path>` // updates docker image for a deployment
 
 `oc scale deployment <deployment-name> --replicas=<number-of-replicas>` // scale up by adding more replicas
+
+`oc patch dc <dc-name> --patch=<json>` // patch a deployment config
+
+`oc set resources dc <dc-name> --limits=memory=2Gi,cpu=2 --requests=memory=1Gi,cpu=500m` // increase resources for deployment config
