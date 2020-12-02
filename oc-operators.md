@@ -1,4 +1,4 @@
-# openShift operators-sdk
+# openshift operators-sdk
 
 1. Install operator-sdk 
 ```
