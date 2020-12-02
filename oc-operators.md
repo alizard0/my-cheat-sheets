@@ -16,6 +16,8 @@ oc new-project ${GUID}-operator --display-name="Operator"
 // deploy the service account used by our operator
 oc apply -f $HOME/operator/deploy/service_account.yaml
 // deploy the role and role-binding for grant the correct permissions to the operator
+// note: you might need to reduce the scope here by applying the role just for the resources types you want to (Kind)
+// if so, edit role.yaml and under apiGroups.resources, set the resource_types (known as Kind)
 oc apply -f $HOME/operator/deploy/role.yaml
 oc apply -f $HOME/operator/deploy/role_binding.yaml
 // deploy the operator
