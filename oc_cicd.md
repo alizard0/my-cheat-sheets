@@ -9,6 +9,8 @@ podman login -u <username> -p <pwd> ${REGISTRY}
 2. Deploy Nexus, a repository artifact manager
 ```
 oc new-app sonatype/nexus3:3.21.2 --name=nexus --as-deployment-config=true --as-deployment-config=true
+// create a new volume for your nexus
+oc set volume dc/nexus --add --overwrite --name=nexus-volume-1 --mount-path=/nexus-data/ --type persistentVolumeClaim --claim-name=nexus-pvc --claim-size=10Gi
 oc expose svc/nexus
 oc get routes
 // get your nexus admin password
