@@ -76,9 +76,15 @@ oc port-forward <app-name> <from>:<to>
 
 8. Quotas
 
-`oc get appliedclusterresourcequotas`                            // list available quotas
+```
+// list available quotas
+oc get appliedclusterresourcequotas
+```
 
-`oc describe appliedclusterresourcequotas <quota-id>`            // describe quota
+```
+// describe quota
+oc describe appliedclusterresourcequotas <quota-id>
+```
 
 9. Documentation
 
