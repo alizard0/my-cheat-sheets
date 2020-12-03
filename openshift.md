@@ -68,6 +68,8 @@
 
 `oc set probe dc/nexus --liveness --failure-threshold 3 --initial-delay-seconds 60 -- echo ok`  // set liveness probe
 
+`oc new-app --docker-image=<your-docker-image-path-and-version> --env=<your-env-variable> --labels=<your-labels> --as-deployment-config=true` // deploy a docker-image
+
 **Volumes**
 
 `oc set volume dc/<your-deployment-config-name> --add --overwrite --name=<your-mount-name> --mount-path=<your-mount-path> --type persistentVolumeClaim --claim-name=<your-mount-name> --claim-size=<your-claim-size>`  // Create persistent volume claim 
