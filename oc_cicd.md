@@ -23,3 +23,18 @@ oc patch dc nexus --patch=<json>
 // for instance to force it recreate instead of rolling
 oc patch dc nexus --patch='{ "spec": { "strategy": { "type": "Recreate" }}}'
 ```
+
+4. Deploy Sonarqube
+```
+// note: you can deploy the postgres db and link it with sonarq
+oc new-app --docker-image=<sonaqube-image-path> --env=SONARQUBE_JDBC_USERNAME=sonar --env=SONARQUBE_JDBC_PASSWORD=sonar --env=SONARQUBE_JDBC_URL=<your-jdbc-url> --labels=app=sonarqube --as-deployment-config=true
+// create a persistent volume claim for sonar
+oc set volume dc/sonarqube --add --overwrite --name=sonarqube-volume-1 --mount-path=/opt/sonarqube/data/ --type persistentVolumeClaim --claim-name=sonarqube-pvc --claim-size=5Gi
+// note: sonarqube requires elasticsearch
+oc patch dc/sonarqube --type=merge -p '{"spec": {"template": {"metadata": {"labels": {"tuned.openshift.io/elasticsearch": "true"}}}}}'
+```
+
+5. Deploy Jenkins
+```
+oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true --as-deployment-config=true
+```
