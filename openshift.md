@@ -71,3 +71,7 @@
 **Volumes**
 
 `oc set volume dc/<your-deployment-config-name> --add --overwrite --name=<your-mount-name> --mount-path=<your-mount-path> --type persistentVolumeClaim --claim-name=<your-mount-name> --claim-size=<your-claim-size>`  // Create persistent volume claim 
+
+**Databases**
+
+`oc new-app --template=postgresql-persistent --param POSTGRESQL_USER=<your-admin> --param POSTGRESQL_PASSWORD=<your-pwd> --param POSTGRESQL_DATABASE=<database-name> --param VOLUME_CAPACITY=4Gi --labels=app=<database-name> --as-deployment-config=true` // deploy postgres persistent database
