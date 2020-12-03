@@ -1,79 +1,145 @@
 # OpenShift 4
 
-**Login**
+1. Login
+```
+oc login -u ${OC_USER} -p ${OC_PWD} ${API}
+```
 
-`oc login -u ${OC_USER} -p ${OC_PWD} ${API}`
+2. Create project
+```
+oc new-project <project-name>
+```
 
-**Create project**
+3. Use project
+```
+oc project <project-name>
+```
 
-`oc new-project <project-name>`
+4. Create application pods
+```
+// from docker registry
+oc new-app --docker-image=<registry-url> --name=<app-name>
+```
 
-**Use project**
+```
+// from a public git repo hosted for instance on GitHub
+oc new-app <public-git-repo-url> --name=<app-name>
+```
 
-`oc project <project-name>`
+5. Manage pods
+```
+// fetch details for a pod
+oc describe pod <pod-name>
+```
+```
+// fetch available pods
+oc get pods
+```
 
-**Create application pods**
+```
+// delete pod
+oc delete pod <pod-name>
+```                                      
 
-`oc new-app --docker-image=<registry-url> --name=<app-name>`    // from docker registry
+```
+// get pod logs
+oc logs -f <pod-name>
+```
 
-`oc new-app <public-git-repo-url> --name=<app-name>`            // from a public git repo hosted for instance on GitHub
+6. Get services
 
-**Manage pods**
+```
+// list project services
+oc get svc
+```                                                    
 
-`oc describe pod <pod-name>`                                    // fetch details for a pod
+```
+// describe service
+oc describe service <service-name>
+```
 
-`oc get pods`                                                   // fetch available pods
+7. Basic networking
 
-`oc delete pod <pod-name>`                                      // delete pod
+```
+// exposes a public route for service
+oc expose service <service-name>
+```
 
-`oc logs -f <pod-name>`                                         // get pod logs
+```
+oc get routes
+```
 
-**Get services**
+```
+// forwards requests
+oc port-forward <app-name> <from>:<to>
+```
 
-`oc get svc`                                                    // list project services
-
-`oc describe service <service-name>`                            // describe service
-
-**Basic networking**
-
-`oc expose service <service-name>`                               // exposes a public route for service
-
-`oc get routes`
-
-`oc port-forward <app-name> <from>:<to>`                          // forwards requests
-
-**Quotas**
+8. Quotas
 
 `oc get appliedclusterresourcequotas`                            // list available quotas
 
 `oc describe appliedclusterresourcequotas <quota-id>`            // describe quota
 
-**Documentation**
+9. Documentation
 
-`oc explain <object-kind>` // get docs
+```
+// get docs
 
-**Deployments**
+oc explain <object-kind>
+```
 
-`oc create -f <deploymnet.yaml>` // run your deployment yaml file
+10. Deployments
 
-`oc set image deployment <deployment-name> CONTAINER=<docker-image-path>` // updates docker image for a deployment
+```
+// run your deployment yaml file
+oc create -f <deploymnet.yaml>
+``` 
 
-`oc scale deployment <deployment-name> --replicas=<number-of-replicas>` // scale up by adding more replicas
+```
+// updates docker image for a deployment
+oc set image deployment <deployment-name> CONTAINER=<docker-image-path>
+``` 
 
-`oc patch dc <dc-name> --patch=<json>` // patch a deployment config
+```
+// scale up by adding more replicas
+oc scale deployment <deployment-name> --replicas=<number-of-replicas>
+``` 
 
-`oc set resources dc <dc-name> --limits=memory=2Gi,cpu=2 --requests=memory=1Gi,cpu=500m` // increase resources for deployment config
+```
+// patch a deployment config
+oc patch dc <dc-name> --patch=<json>
+```
 
-`oc set probe dc/<dc-name> --readiness --failure-threshold 3 --initial-delay-seconds 60 --get-url=http://:8081/`  // set readiness probe
+```
+// increase resources for deployment config
+oc set resources dc <dc-name> --limits=memory=2Gi,cpu=2 --requests=memory=1Gi,cpu=500m
+``` 
 
-`oc set probe dc/nexus --liveness --failure-threshold 3 --initial-delay-seconds 60 -- echo ok`  // set liveness probe
+```
+// set readiness probe
+oc set probe dc/<dc-name> --readiness --failure-threshold 3 --initial-delay-seconds 60 --get-url=http://:8081/
+```
 
-`oc new-app --docker-image=<your-docker-image-path-and-version> --env=<your-env-variable> --labels=<your-labels> --as-deployment-config=true` // deploy a docker-image
+```
+// set liveness probe
+oc set probe dc/nexus --liveness --failure-threshold 3 --initial-delay-seconds 60 -- echo ok
+```  
 
-**Volumes**
+```
+// deploy a docker-image
+oc new-app --docker-image=<your-docker-image-path-and-version> --env=<your-env-variable> --labels=<your-labels> --as-deployment-config=true
+``` 
 
-`oc set volume dc/<your-deployment-config-name> --add --overwrite --name=<your-mount-name> --mount-path=<your-mount-path> --type persistentVolumeClaim --claim-name=<your-mount-name> --claim-size=<your-claim-size>`  // Create persistent volume claim 
+11. Volumes
 
-**Databases**
+```
+// Create persistent volume claim 
+oc set volume dc/<your-deployment-config-name> --add --overwrite --name=<your-mount-name> --mount-path=<your-mount-path> --type persistentVolumeClaim --claim-name=<your-mount-name> --claim-size=<your-claim-size>
+```  
 
-`oc new-app --template=postgresql-persistent --param POSTGRESQL_USER=<your-admin> --param POSTGRESQL_PASSWORD=<your-pwd> --param POSTGRESQL_DATABASE=<database-name> --param VOLUME_CAPACITY=4Gi --labels=app=<database-name> --as-deployment-config=true` // deploy postgres persistent database
+12. Databases
+
+```
+// deploy postgres persistent database
+oc new-app --template=postgresql-persistent --param POSTGRESQL_USER=<your-admin> --param POSTGRESQL_PASSWORD=<your-pwd> --param POSTGRESQL_DATABASE=<database-name> --param VOLUME_CAPACITY=4Gi --labels=app=<database-name> --as-deployment-config=true
+```
