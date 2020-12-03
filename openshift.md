@@ -90,7 +90,6 @@ oc describe appliedclusterresourcequotas <quota-id>
 
 ```
 // get docs
-
 oc explain <object-kind>
 ```
 
