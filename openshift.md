@@ -148,3 +148,8 @@ oc set volume dc/<your-deployment-config-name> --add --overwrite --name=<your-mo
 // deploy postgres persistent database
 oc new-app --template=postgresql-persistent --param POSTGRESQL_USER=<your-admin> --param POSTGRESQL_PASSWORD=<your-pwd> --param POSTGRESQL_DATABASE=<database-name> --param VOLUME_CAPACITY=4Gi --labels=app=<database-name> --as-deployment-config=true
 ```
+13. Config Map
+```
+// create configmap from file
+oc create configmap <service-name> --from-file=<file-path> -n <namespace/project>
+```
