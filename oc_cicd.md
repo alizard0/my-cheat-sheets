@@ -30,6 +30,8 @@ oc patch dc nexus --patch='{ "spec": { "strategy": { "type": "Recreate" }}}'
 oc new-app --docker-image=<sonaqube-image-path> --env=SONARQUBE_JDBC_USERNAME=sonar --env=SONARQUBE_JDBC_PASSWORD=sonar --env=SONARQUBE_JDBC_URL=<your-jdbc-url> --labels=app=sonarqube --as-deployment-config=true
 // create a persistent volume claim for sonar
 oc set volume dc/sonarqube --add --overwrite --name=sonarqube-volume-1 --mount-path=/opt/sonarqube/data/ --type persistentVolumeClaim --claim-name=sonarqube-pvc --claim-size=5Gi
+// if you want increase resources
+oc set resources dc/name --limits=memory=3Gi,cpu=2 --requests=memory=2Gi,cpu=1
 // note: sonarqube requires elasticsearch
 oc patch dc/sonarqube --type=merge -p '{"spec": {"template": {"metadata": {"labels": {"tuned.openshift.io/elasticsearch": "true"}}}}}'
 ```
