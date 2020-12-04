@@ -39,4 +39,6 @@ oc patch dc/sonarqube --type=merge -p '{"spec": {"template": {"metadata": {"labe
 5. Deploy Jenkins
 ```
 oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4Gi --param DISABLE_ADMINISTRATIVE_MONITORS=true --as-deployment-config=true
+// give it some resources (optional)
+oc set resources dc jenkins --limits=memory=2Gi,cpu=2 --requests=memory=1Gi,cpu=500m
 ```
