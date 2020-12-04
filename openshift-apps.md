@@ -20,6 +20,6 @@ oc patch bc/<build-config-app-name> --patch='{"spec": {"strategy": {"sourceStrat
 ```
 5. create application from image stream
 ```
-oc new-app --image-stream=<your-image-stream> <your-git-file-path> --as-deployment-config=true
+oc new-app --image-stream=redhat-openjdk18-openshift:1.2 <your-git-file-path> --as-deployment-config=true
 oc expose svc <app-name>
 ```
